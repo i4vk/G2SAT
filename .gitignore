@@ -5,5 +5,10 @@ logging/
 graphs/
 formulas/
 fig/
+runs/
+dataset/test_set/
+dataset/train_set/
 
 *.py~
+*.pyc
+__pycache__
