@@ -12,3 +12,4 @@ dataset/train_set/
 *.py~
 *.pyc
 __pycache__
+eval/scalefree
