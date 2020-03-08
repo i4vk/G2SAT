@@ -55,13 +55,13 @@ Graphs will be saved in 2 formats: a single `.dat` file containing all the gener
 
 We can then generate CNF formulas from the generated graphs
 ```bash
-python conversion.py --src graphs/GCN_3_32_preTrue_dropFalse_yield1_019501.120000_0.dat --store-dir formulas --action=lcg2sat
+python eval/conversion.py --src graphs/GCN_3_32_preTrue_dropFalse_yield1_019501.120000_0.dat --store-dir formulas --action=lcg2sat
 ```
 4. Analyze results
 We make use of this script to compute the scale-free structure (http://www.iiia.csic.es/~levy/software/scalefree.cpp)
 ```bash
 g++ -o eval/scale_free eval/scale_free.cpp
-python eval/evaluate_formulas.py -s eval/scalefree -d formulas/ 
+python eval/evaluate_graphs.py -s eval/scalefree -d formulas/ 
 ```
 This will print out the mean/std of the graph statistics of formulas in the formulas/ directory. You could also dump the raw statistics by adding the following flag: -o graph_statistics.csv
 
