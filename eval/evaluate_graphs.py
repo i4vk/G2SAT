@@ -81,7 +81,8 @@ def main():
         features += [nx.average_clustering(VIG)]
         features += get_modularities(VIG, LIG, VCG, LCG) # Modularities of VIG & VCG
         features += get_scale_free(source, scale_free)
-        lines.append(features)
+        if len(features) == 9:
+            lines.append(features)
 
     if out_name != None:
         with open(out_name, 'a') as csvFile:
