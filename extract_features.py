@@ -1,8 +1,8 @@
 import sys
-from eval.conversion import sat_to_LCG
+from eval.conversion import sat_to_VIG
 import community
 
-if len(sys.argv) != 2:
+if len(sys.argv) != 2 and len(sys.argv) != 3:
     print("Error en el paso de parámetros")
     exit(-1)
 
@@ -19,16 +19,19 @@ with open(archivo, 'r') as f:
             else:
                 len_claus += len(div)-1
 
-    LCG = sat_to_LCG(archivo)
-    partition = community.best_partition(LCG)
-    modularity = community.modularity(partition, LCG)
-    num_communities = len(set(partition.values()))
-
-                
+    VIG = sat_to_VIG(archivo)
+    partition = community.best_partition(VIG)
+    modularity = community.modularity(partition, VIG)
+    num_communities = len(set(partition.values()))                
                 
 media_len_claus = len_claus/num_claus
-print(f'Num. var.: {num_var}')
-print(f'Num. claus.: {num_claus}')
-print(f"Longitud media de claus.: {media_len_claus}")
-print(f'Num. communities.: {num_communities}')
-print(f'Modularity: {modularity}')
+
+if len(sys.argv) == 3:
+    if sys.argv[2] == 'csv':
+        print(f'{num_var},{num_claus},{media_len_claus},{num_communities},{modularity}')
+else: 
+    print(f'Num. var.: {num_var}')
+    print(f'Num. claus.: {num_claus}')
+    print(f"Longitud media de claus.: {media_len_claus}")
+    print(f'Num. communities.: {num_communities}')
+    print(f'Modularity: {modularity}')
