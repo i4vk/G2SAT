@@ -29,8 +29,15 @@ def main():
     scale_free = options.scale_free
 
     title = [ "num. vars", "num. clauses", "VIG clust.",
-              "mod. VIG", "mod. LCG", "mod. VCG", "mod. LCG",
+              "mod. VIG", "mod. LIG", "mod. VCG", "mod. LCG",
               "var. alpha", "clause alpha"]
+
+    # title = [ "num. vars", "num. clauses", "VIG clust.",
+    #           "mod. VIG", "mod. LIG", "mod. VCG", "mod. LCG",
+    #           "var. alpha"]
+
+    total_errores = 0
+    total = 0
 
     lines = []
     for filename in os.listdir(path_to_formulas):
@@ -83,6 +90,10 @@ def main():
         features += get_scale_free(source, scale_free)
         if len(features) == 9:
             lines.append(features)
+        else:
+            total_errores += 1
+        
+        total += 1
 
     if out_name != None:
         with open(out_name, 'a') as csvFile:
@@ -94,6 +105,8 @@ def main():
         std = np.nanstd(lines, axis=0)
         for i, column_name in enumerate(title):
             print("mean/std {}: {}/{}".format(column_name, means[i], std[i]))
+
+        print(f'\nTotal de errores {total_errores}/{total}, que corresponde al {total_errores*100/total}%')
 
 def getParser():
     parser = OptionParser(usage="usage: %prog [options] formula outfile",
